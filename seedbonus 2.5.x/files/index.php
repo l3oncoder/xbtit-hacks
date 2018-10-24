@@ -3,7 +3,7 @@ ob_start();
   if ($CURUSER["uid"] > 1)
     {
   if (!isset($CURUSER)) global $CURUSER;
-$r=do_sqlquery("SELECT seedbonus FROM {$TABLE_PREFIX}users WHERE id=$CURUSER[uid]");
+$r=do_sqlquery("SELECT seedbonus FROM {$TABLE_PREFIX}users WHERE id=". mysqli_escape_string($CURUSER[uid]) ."");
 $r->data_seek(0); $cc=number_format($r->fetch_array()["seedbonus"],2);
 echo "<br><center><h1>".$language["BONUS_INFO1"]."$cc).<br>".$language["BONUS_INFO2"]."</h1></center>";  
 ?>
@@ -15,7 +15,7 @@ echo "<br><center><h1>".$language["BONUS_INFO1"]."$cc).<br>".$language["BONUS_IN
     <td class=header align=center width="62"><?php echo $language["EXCHANGE"] ?> </td>
   </tr>
 <?php
-  $uid=$CURUSER['uid'];
+  $uid=". mysqli_escape_string($CURUSER['uid']) .";
   $r=do_sqlquery("SELECT * from {$TABLE_PREFIX}users where id=$uid");
   $r->data_seek(0); $c=$r->fetch_array()["seedbonus"];
   $r=do_sqlquery("SELECT * FROM {$TABLE_PREFIX}bonus");
