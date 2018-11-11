@@ -4,7 +4,7 @@ require_once ("include/config.php");
 dbconn();
   if ($CURUSER["uid"] > 1)
     {
-  $uid=$CURUSER['uid'];
+  $uid=". mysqli_escape_string($CURUSER['uid']).";
   $r=do_sqlquery("SELECT * from {$TABLE_PREFIX}users where id=$uid");
   $r->data_seek(0); $c=$r->fetch_array()["seedbonus"];
 if($c>=$GLOBALS["price_name"]) {
