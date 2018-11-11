@@ -7,7 +7,7 @@ global $CURUSER, $FORUMLINK, $db_prefix;
     {
 $id=$_GET['id'];
 if($id=="vip"){
-$uid=$CURUSER["uid"];
+$uid=". mysqli_escape_string($CURUSER['uid']).";
 $r=do_sqlquery("SELECT seedbonus FROM {$TABLE_PREFIX}users WHERE id=$uid");
 $r->data_seek(0); $u=$r->fetch_array()["seedbonus"];
 if($u<$GLOBALS["price_vip"]) {
